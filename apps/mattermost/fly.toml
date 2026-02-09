@@ -1,0 +1,32 @@
+app = 'mattermost'
+primary_region = 'fra'
+
+[build]
+  image = 'mattermost/mattermost-team-edition:latest'
+
+[env]
+  TZ = 'UTC'
+  MM_SQLSETTINGS_DRIVERNAME = 'postgres'
+
+[[mounts]]
+  source = 'mattermost_data'
+  destination = '/mattermost/data'
+  processes = ['app']
+
+[http_service]
+  internal_port = 8065
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+  [http_service.concurrency]
+    type = 'requests'
+    hard_limit = 250
+    soft_limit = 200
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

@@ -34,6 +34,7 @@ Run `make doctor` to verify your setup.
 | kuma | Uptime monitoring | - |
 | librechat | AI chat interface | MongoDB |
 | linkding | Bookmark manager | - |
+| mattermost | Team messaging platform | PostgreSQL |
 | md-to-pdf | Markdown to PDF converter | - |
 | memos | Note-taking app | - |
 | ollama | Local LLM server | - |

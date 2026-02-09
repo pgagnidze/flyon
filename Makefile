@@ -10,6 +10,9 @@ $(if $(filter librechat,$(app)),\
 	$(if $(filter searxng,$(app)),\
 		--env SEARXNG_BASE_URL="https://$(app)$(if $(environment),-$(environment),).fly.dev/" \
 		--env SEARXNG_VALKEY_URL="valkey://$(app)$(if $(environment),-$(environment),)-valkey.internal:6379/0",\
+		$(if $(filter mattermost,$(app)),\
+			--env MM_SQLSETTINGS_DATASOURCE="postgres://mattermost@$(app)$(if $(environment),-$(environment),)-postgres.internal:5432/mattermost?sslmode=disable",\
+		)\
 	)\
 )
 endef
@@ -132,5 +135,12 @@ _deploy_services:
 		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-valkey APP_DIR=apps/$(app) && \
 		cd apps/$(app) && fly deploy -c fly.valkey.toml \
 		--app $(app)$(if $(environment),-$(environment),)-valkey \
+		--primary-region $(region); \
+	fi
+	@if [ -f "apps/$(app)/fly.postgres.toml" ]; then \
+		echo "Deploying PostgreSQL service..." && \
+		$(MAKE) _create_app APP_NAME=$(app)$(if $(environment),-$(environment),)-postgres APP_DIR=apps/$(app) && \
+		cd apps/$(app) && fly deploy -c fly.postgres.toml \
+		--app $(app)$(if $(environment),-$(environment),)-postgres \
 		--primary-region $(region); \
 	fi
