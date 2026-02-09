@@ -77,13 +77,13 @@ deploy: create ## Deploy app with services
 		cd apps/$(app) && \
 		ENVIRONMENT_SUFFIX=$(if $(environment),-$(environment),) envsubst < librechat.example.yaml.template > librechat.example.yaml; \
 	fi
+	@$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
 	@cd apps/$(app) && \
 		echo "Deploying main application..." && \
 		fly deploy \
 			--app $(app)$(if $(environment),-$(environment),) \
 			$(if $(filter ollama,$(app)),,--primary-region $(region)) \
 			$(call get_app_env_args)
-	@$(MAKE) _deploy_services app=$(app) $(if $(environment),environment=$(environment),) region=$(region)
 	@echo "Deployment complete for $(app)$(if $(environment),-$(environment),)"
 
 status: ## Show app status
