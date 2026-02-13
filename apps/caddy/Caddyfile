@@ -48,3 +48,8 @@ ollama.meore.link {
 	import tailscale
 	reverse_proxy localhost:11434
 }
+
+convertx.meore.link {
+	import tailscale
+	reverse_proxy localhost:3000
+}

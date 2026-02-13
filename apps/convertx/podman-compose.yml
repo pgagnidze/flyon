@@ -1,0 +1,12 @@
+services:
+  convertx:
+    image: ghcr.io/c4illin/convertx
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file: .env
+    volumes:
+      - convertx_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  convertx_data:

@@ -14,6 +14,7 @@ Self-hosted applications on a home server using Podman Compose.
 | [SearXNG](apps/searxng) | Meta search engine | 8888 | Valkey |
 | [LibreChat](apps/librechat) | AI chat interface | 3080 | MongoDB |
 | [Ollama](apps/ollama) | Local LLM server | 11434 | |
+| [ConvertX](apps/convertx) | File converter | 3000 | |
 
 ## Usage
 
