@@ -179,7 +179,7 @@ The server should now boot without prompting for a passphrase. The original LUKS
 
 ```bash
 sudo dnf upgrade -y
-sudo dnf install -y podman-compose git micro btop
+sudo dnf install -y podman-compose git make micro btop
 ```
 
 </details>
