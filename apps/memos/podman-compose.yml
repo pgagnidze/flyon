@@ -1,0 +1,12 @@
+services:
+  memos:
+    image: docker.io/neosmemo/memos:stable
+    ports:
+      - "127.0.0.1:5230:5230"
+    volumes:
+      - memos_data:/var/opt/memos
+    restart: unless-stopped
+
+volumes:
+  memos_data:
+

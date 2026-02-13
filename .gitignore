@@ -1,14 +1,9 @@
-# Fly.io
-.fly/
-fly.log
-
 # Environment files
 .env
 .env.local
 
-# Generated config files
-apps/glance/glance.yml
-apps/librechat/librechat.example.yaml
+# Local files
+*.local.*
 
 # OS files
 .DS_Store

@@ -1,0 +1,22 @@
+services:
+  librechat:
+    build: .
+    ports:
+      - "127.0.0.1:3080:3080"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - HOST=0.0.0.0
+      - ALLOW_REGISTRATION=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  mongodb:
+    image: docker.io/mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+

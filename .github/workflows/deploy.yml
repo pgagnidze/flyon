@@ -1,55 +1,39 @@
 name: Deploy
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/**"
   workflow_dispatch:
-    inputs:
-      apps:
-        description: 'Apps to deploy (comma-separated, or "all")'
-        required: true
-        default: 'all'
-      environment:
-        description: 'Environment suffix (leave empty to use ENVIRONMENT secret)'
-        required: false
-        default: ''
-      region:
-        description: 'Deployment region'  
-        required: false
-        default: 'fra'
 
 jobs:
-  discover:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    outputs:
-      matrix: ${{ steps.apps.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: apps
-        run: echo "matrix=$(make matrix apps='${{ inputs.apps }}')" >> $GITHUB_OUTPUT
-
   deploy:
-    name: deploy (worker ${{ matrix.worker }})
-    needs: discover
-    if: needs.discover.outputs.matrix != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      matrix:
-        worker: [1, 2, 3, 4]
-      fail-fast: false
-    env:
-      WORKER_COUNT: 4
     steps:
       - uses: actions/checkout@v4
-      - name: Install Fly CLI
-        run: |
-          curl -L https://fly.io/install.sh | sh
-          echo "/home/runner/.fly/bin" >> $GITHUB_PATH
-      - name: Deploy apps
-        run: .github/scripts/deploy-worker.sh ${{ matrix.worker }} ${{ env.WORKER_COUNT }} '${{ inputs.apps }}' '${{ inputs.environment }}' '${{ inputs.region }}'
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          ping: ${{ secrets.SSH_HOST }}
+
+      - name: Deploy to server
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-          ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT }}
-          REDDIT_APP_NAME: ${{ secrets.REDDIT_APP_NAME }}
-          REDDIT_APP_CLIENT_ID: ${{ secrets.REDDIT_APP_CLIENT_ID }}
-          REDDIT_APP_SECRET: ${{ secrets.REDDIT_APP_SECRET }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << 'EOF'
+            REPO_DIR=~/${{ github.event.repository.name }}
+            if [ ! -d "$REPO_DIR" ]; then
+              git clone ${{ github.server_url }}/${{ github.repository }}.git "$REPO_DIR"
+            fi
+            cd "$REPO_DIR"
+            git pull origin main
+
+            make update
+          EOF

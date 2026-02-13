@@ -1,0 +1,12 @@
+services:
+  kuma:
+    image: docker.io/louislam/uptime-kuma:latest
+    ports:
+      - "127.0.0.1:3001:3001"
+    volumes:
+      - kuma_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  kuma_data:
+

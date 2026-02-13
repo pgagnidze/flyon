@@ -1,0 +1,21 @@
+services:
+  searxng:
+    build: .
+    ports:
+      - "127.0.0.1:8888:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8888/
+    depends_on:
+      - valkey
+    restart: unless-stopped
+
+  valkey:
+    image: docker.io/valkey/valkey:alpine
+    volumes:
+      - valkey_data:/data
+    command: valkey-server --save 3600 1 300 100 60 10000
+    restart: unless-stopped
+
+volumes:
+  valkey_data:
+

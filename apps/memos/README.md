@@ -1,27 +1,18 @@
 # Memos
 
-Privacy-focused note-taking service with markdown support for personal knowledge management.
+Privacy-focused note-taking with markdown support.
 
-## Quick Deploy
-
-```bash
-make deploy app=memos environment=prod region=fra
-```
-
-## Initial Configuration
+## Deploy
 
 ```bash
-# Access the app to create your first admin account
-# Navigate to https://memos-prod.fly.dev
-# Register your first user account (first user becomes admin)
+make deploy app=memos
 ```
 
-## Useful Commands
+First user to register becomes admin.
+
+## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `fly logs --app memos-prod` | View app logs |
-| `fly status --app memos-prod` | Check app status |
-| `fly ssh console --app memos-prod` | Access terminal |
-| `fly dashboard --app memos-prod` | Open web dashboard |
-| `fly scale show --app memos-prod` | Check scaling |
+| `make logs app=memos` | View logs |
+| `make status app=memos` | Check status |
