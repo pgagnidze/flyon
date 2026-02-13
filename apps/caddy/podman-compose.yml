@@ -3,7 +3,7 @@ services:
     image: ghcr.io/caddybuilds/caddy-cloudflare:latest
     network_mode: host
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,z
       - caddy_data:/data
       - caddy_config:/config
     env_file: .env
