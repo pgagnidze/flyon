@@ -59,10 +59,15 @@ pull: ## Pull latest images for an app
 	@cd apps/$(app) && podman-compose pull
 
 update: ## Pull and restart all apps
-	@for dir in apps/*/; do \
+	@failed=""; \
+	for dir in apps/*/; do \
 		if [ -f "$$dir/podman-compose.yml" ]; then \
 			app=$$(basename "$$dir"); \
 			echo "Updating $$app..."; \
-			cd "$$dir" && podman-compose pull 2>/dev/null; podman-compose up -d && cd ../..; \
+			(cd "$$dir" && podman-compose pull 2>/dev/null; podman-compose up -d) || failed="$$failed $$app"; \
 		fi; \
-	done
+	done; \
+	if [ -n "$$failed" ]; then \
+		echo "Failed:$$failed"; \
+		exit 1; \
+	fi

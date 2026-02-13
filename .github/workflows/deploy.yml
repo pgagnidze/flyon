@@ -28,6 +28,7 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << 'EOF'
+            set -e
             REPO_DIR=~/${{ github.event.repository.name }}
             if [ ! -d "$REPO_DIR" ]; then
               git clone ${{ github.server_url }}/${{ github.repository }}.git "$REPO_DIR"
