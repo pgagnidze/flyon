@@ -10,8 +10,6 @@ Copy the example env file and fill in your values:
 cp .env.example .env
 ```
 
-To get your Tailscale IP: `tailscale ip -4`
-
 To get a Cloudflare API token: Cloudflare dashboard > My Profile > API Tokens > Create Token > Edit zone DNS.
 
 ## Deploy

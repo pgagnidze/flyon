@@ -1,6 +1,4 @@
 (tailscale) {
-	bind {env.TAILNET_IP}
-
 	@blocked not remote_ip 100.64.0.0/10
 
 	tls {
