@@ -1,4 +1,4 @@
-FROM librechat/librechat-dev:latest
+FROM docker.io/librechat/librechat-dev:latest
 
 WORKDIR /app
 
