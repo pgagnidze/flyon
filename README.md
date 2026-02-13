@@ -298,8 +298,6 @@ Access via Tailscale hostname: `https://hostname:9090`
 
 ## Todo
 
-- [ ] Deploy apps via Podman Compose
-- [ ] Set up NextDNS rewrite for `*.meore.link`
 - [ ] Selective deploy (only changed apps instead of all)
 - [ ] Cleanup removed apps (stop containers for deleted app directories)
 - [ ] UPS for power outage protection

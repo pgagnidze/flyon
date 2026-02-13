@@ -58,15 +58,18 @@ pull: ## Pull latest images for an app
 	$(call validate_app)
 	@cd apps/$(app) && podman-compose pull
 
-update: ## Pull and restart all apps
+update: ## Pull and restart all apps (caddy last)
 	@failed=""; \
 	for dir in apps/*/; do \
 		if [ -f "$$dir/podman-compose.yml" ]; then \
 			app=$$(basename "$$dir"); \
+			if [ "$$app" = "caddy" ]; then continue; fi; \
 			echo "Updating $$app..."; \
 			(cd "$$dir" && podman-compose pull 2>/dev/null; podman-compose up -d) || failed="$$failed $$app"; \
 		fi; \
 	done; \
+	echo "Updating caddy..."; \
+	(cd apps/caddy && podman-compose pull 2>/dev/null; podman-compose up -d) || failed="$$failed caddy"; \
 	if [ -n "$$failed" ]; then \
 		echo "Failed:$$failed"; \
 		exit 1; \
