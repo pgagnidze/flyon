@@ -26,15 +26,18 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << 'EOF'
+          ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << EOF
             set -e
             REPO_DIR=~/${{ github.event.repository.name }}
-            if [ ! -d "$REPO_DIR" ]; then
-              git clone ${{ github.server_url }}/${{ github.repository }}.git "$REPO_DIR"
+            if [ ! -d "\$REPO_DIR" ]; then
+              git clone ${{ github.server_url }}/${{ github.repository }}.git "\$REPO_DIR"
             fi
-            cd "$REPO_DIR"
+            cd "\$REPO_DIR"
             git pull origin main
+
+            echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" > apps/caddy/.env
 
             make update
           EOF

@@ -1,3 +1,8 @@
+{
+	auto_https disable_redirects
+	http_port 8080
+}
+
 (tailscale) {
 	@blocked not remote_ip 100.64.0.0/10
 
