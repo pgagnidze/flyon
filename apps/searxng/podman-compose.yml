@@ -3,6 +3,7 @@ services:
     build: .
     ports:
       - "127.0.0.1:8888:8080"
+    env_file: .env
     environment:
       - SEARXNG_BASE_URL=http://localhost:8888/
     depends_on:

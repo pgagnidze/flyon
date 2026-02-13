@@ -27,6 +27,7 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SEARXNG_SECRET: ${{ secrets.SEARXNG_SECRET }}
         run: |
           ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << EOF
             set -e
@@ -38,6 +39,7 @@ jobs:
             git pull origin main
 
             echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" > apps/caddy/.env
+            echo "SEARXNG_SECRET=$SEARXNG_SECRET" > apps/searxng/.env
 
             make update
           EOF
