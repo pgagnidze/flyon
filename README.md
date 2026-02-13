@@ -69,11 +69,6 @@ Boot from USB and install with:
 - Root account: disabled
 - User: create one with administrator privileges
 
-</details>
-
-<details>
-<summary><strong>3. First boot and networking</strong></summary>
-
 After install, log in and connect to Wi-Fi:
 
 ```bash
@@ -86,13 +81,13 @@ If Wi-Fi doesn't work out of the box, use ethernet or phone USB tethering to get
 </details>
 
 <details>
-<summary><strong>4. Tailscale</strong></summary>
+<summary><strong>3. Tailscale</strong></summary>
 
 Tailscale gives you remote access from anywhere without port forwarding, static IPs, or firewall configuration.
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
+sudo tailscale up --ssh
 ```
 
 Open the URL it prints, authenticate, and the machine joins your tailnet. From any other device on the same tailnet:
@@ -105,10 +100,40 @@ Cockpit web UI is also available at `https://hostname:9090`.
 
 Install Tailscale on your laptop and phone too. After this, unplug keyboard and monitor.
 
+The GitHub Actions deploy workflow connects to your tailnet via OAuth.
+
+In the Tailscale admin console:
+
+1. Go to Access Controls > Tags and create two tags (owner: `autogroup:admin`):
+   - `ci`
+   - `server`
+2. Go to Machines, find your server, and assign `tag:server` to it
+3. In the ACL editor, add the SSH rule for CI:
+
+```json
+"ssh": [
+    {
+        "action": "accept",
+        "src":    ["tag:ci"],
+        "dst":    ["tag:server"],
+        "users":  ["deploy"],
+    }
+]
+```
+
+4. Go to Settings > OAuth clients > Generate OAuth client
+   - Scope: `auth_keys` (writable)
+   - Tag: `tag:ci`
+5. Add the following secrets to your GitHub repo (Settings > Secrets and variables > Actions):
+   - `TS_OAUTH_CLIENT_ID` - OAuth client ID
+   - `TS_OAUTH_SECRET` - OAuth client secret (shown only once)
+   - `SSH_USER` - `deploy`
+   - `SSH_HOST` - your server's Tailscale hostname
+
 </details>
 
 <details>
-<summary><strong>5. LUKS + TPM auto-unlock</strong></summary>
+<summary><strong>4. LUKS + TPM auto-unlock</strong></summary>
 
 With LUKS enabled, the server asks for a passphrase on every boot. This prevents unattended restarts after power loss. Binding the LUKS key to the TPM chip fixes this.
 
@@ -150,7 +175,7 @@ The server should now boot without prompting for a passphrase. The original LUKS
 </details>
 
 <details>
-<summary><strong>6. System packages</strong></summary>
+<summary><strong>5. System packages</strong></summary>
 
 ```bash
 sudo dnf upgrade -y
@@ -160,7 +185,7 @@ sudo dnf install -y podman-compose git micro btop
 </details>
 
 <details>
-<summary><strong>7. Deploy user</strong></summary>
+<summary><strong>6. Deploy user</strong></summary>
 
 Create a dedicated user for CI deployments:
 
@@ -174,7 +199,7 @@ The repo is cloned automatically on the first deploy via GitHub Actions.
 </details>
 
 <details>
-<summary><strong>8. Firewall</strong></summary>
+<summary><strong>7. Firewall</strong></summary>
 
 Open port 443 for HTTPS:
 
@@ -186,7 +211,7 @@ sudo firewall-cmd --reload
 </details>
 
 <details>
-<summary><strong>9. NextDNS rewrite</strong></summary>
+<summary><strong>8. NextDNS rewrite</strong></summary>
 
 NextDNS resolves `*.meore.link` to your server's Tailscale IP so the domain works within your tailnet.
 
@@ -205,47 +230,6 @@ dig +short memos.meore.link
 
 </details>
 
-<details>
-<summary><strong>10. Tailscale SSH and CI</strong></summary>
-
-Enable Tailscale SSH on the server so CI can connect without SSH keys or passwords:
-
-```bash
-sudo tailscale up --ssh
-```
-
-The GitHub Actions deploy workflow connects to your tailnet via OAuth.
-
-In the Tailscale admin console:
-
-1. Go to Access Controls > Tags and create two tags (owner: `autogroup:admin`):
-   - `ci`
-   - `server`
-2. Go to Machines, find your server, and assign `tag:server` to it
-3. In the ACL editor, add the SSH rule for CI:
-
-```json
-"ssh": [
-    {
-        "action": "accept",
-        "src":    ["tag:ci"],
-        "dst":    ["tag:server"],
-        "users":  ["deploy"],
-    }
-]
-```
-
-4. Go to Settings > OAuth clients > Generate OAuth client
-   - Scope: `auth_keys` (writable)
-   - Tag: `tag:ci`
-5. Add the following secrets to your GitHub repo (Settings > Secrets and variables > Actions):
-   - `TS_OAUTH_CLIENT_ID` - OAuth client ID
-   - `TS_OAUTH_SECRET` - OAuth client secret (shown only once)
-   - `SSH_USER` - `deploy`
-   - `SSH_HOST` - your server's Tailscale hostname
-
-</details>
-
 ## Troubleshooting
 
 <details>
@@ -255,6 +239,7 @@ Happens after BIOS or firmware updates. Need temporary keyboard and monitor.
 
 1. Type LUKS password at the boot prompt
 2. Re-enroll TPM:
+
    ```bash
    sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=1+7 /dev/nvme0n1p3
    sudo dracut --regenerate-all --force
