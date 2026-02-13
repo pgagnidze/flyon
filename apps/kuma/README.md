@@ -1,19 +1,16 @@
-# Kuma
+# Uptime Kuma
 
-Uptime monitoring tool with status page and alerting capabilities for tracking service availability.
+Uptime monitoring with status pages and alerting.
 
-## Quick Deploy
+## Deploy
 
 ```bash
-make deploy app=kuma environment=prod region=fra
+make deploy app=kuma
 ```
 
-## Useful Commands
+## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `fly logs --app kuma-prod` | View app logs |
-| `fly status --app kuma-prod` | Check app status |
-| `fly ssh console --app kuma-prod` | Access terminal |
-| `fly dashboard --app kuma-prod` | Open web dashboard |
-| `fly scale show --app kuma-prod` | Check scaling |
+| `make logs app=kuma` | View logs |
+| `make status app=kuma` | Check status |

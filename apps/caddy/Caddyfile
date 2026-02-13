@@ -1,0 +1,47 @@
+(tailscale) {
+	bind {env.TAILNET_IP}
+
+	@blocked not remote_ip 100.64.0.0/10
+
+	tls {
+		resolvers 1.1.1.1
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+	}
+
+	respond @blocked "Unauthorized" 403
+}
+
+kuma.meore.link {
+	import tailscale
+	reverse_proxy localhost:3001
+}
+
+memos.meore.link {
+	import tailscale
+	reverse_proxy localhost:5230
+}
+
+it-tools.meore.link {
+	import tailscale
+	reverse_proxy localhost:8080
+}
+
+md-to-pdf.meore.link {
+	import tailscale
+	reverse_proxy localhost:8000
+}
+
+searxng.meore.link {
+	import tailscale
+	reverse_proxy localhost:8888
+}
+
+librechat.meore.link {
+	import tailscale
+	reverse_proxy localhost:3080
+}
+
+ollama.meore.link {
+	import tailscale
+	reverse_proxy localhost:11434
+}
