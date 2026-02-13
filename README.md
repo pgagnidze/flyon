@@ -299,3 +299,7 @@ Access via Tailscale hostname: `https://hostname:9090`
 
 > [!NOTE]
 > Current hardware: Beelink GTi14 Ultra. Intel Core Ultra 9 185H, 32GB DDR5, 1TB NVMe.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
