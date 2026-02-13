@@ -199,13 +199,20 @@ The repo is cloned automatically on the first deploy via GitHub Actions.
 </details>
 
 <details>
-<summary><strong>7. Firewall</strong></summary>
+<summary><strong>7. Firewall and ports</strong></summary>
 
 Open port 443 for HTTPS:
 
 ```bash
 sudo firewall-cmd --add-port=443/tcp --permanent
 sudo firewall-cmd --reload
+```
+
+Allow rootless Podman to bind privileged ports (needed for Caddy on 443):
+
+```bash
+echo "net.ipv4.ip_unprivileged_port_start=80" | sudo tee /etc/sysctl.d/caddy.conf
+sudo sysctl -p /etc/sysctl.d/caddy.conf
 ```
 
 </details>
