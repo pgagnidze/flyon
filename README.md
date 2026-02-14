@@ -109,15 +109,27 @@ In the Tailscale admin console:
    - `ci`
    - `server`
 2. Go to Machines, find your server, and assign `tag:server` to it
-3. In the ACL editor, add the SSH rule for CI:
+3. In the ACL editor, add the SSH rules:
 
 ```json
 "ssh": [
     {
+        "action": "check",
+        "src":    ["autogroup:member"],
+        "dst":    ["tag:server"],
+        "users":  ["autogroup:nonroot", "root"]
+    },
+    {
+        "action": "check",
+        "src":    ["autogroup:member"],
+        "dst":    ["autogroup:self"],
+        "users":  ["autogroup:nonroot", "root"]
+    },
+    {
         "action": "accept",
         "src":    ["tag:ci"],
         "dst":    ["tag:server"],
-        "users":  ["deploy"],
+        "users":  ["deploy"]
     }
 ]
 ```
