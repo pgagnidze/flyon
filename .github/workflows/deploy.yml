@@ -29,6 +29,8 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           SEARXNG_SECRET: ${{ secrets.SEARXNG_SECRET }}
           CONVERTX_JWT_SECRET: ${{ secrets.CONVERTX_JWT_SECRET }}
+          OPENCLAW_GATEWAY_TOKEN: ${{ secrets.OPENCLAW_GATEWAY_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << EOF
             set -e
@@ -42,6 +44,7 @@ jobs:
             echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" > apps/caddy/.env
             echo "SEARXNG_SECRET=$SEARXNG_SECRET" > apps/searxng/.env
             echo "JWT_SECRET=$CONVERTX_JWT_SECRET" > apps/convertx/.env
+            printf "OPENCLAW_GATEWAY_TOKEN=$OPENCLAW_GATEWAY_TOKEN\nANTHROPIC_API_KEY=$ANTHROPIC_API_KEY\n" > apps/openclaw/.env
 
             make update
           EOF

@@ -53,3 +53,8 @@ convertx.meore.link {
 	import tailscale
 	reverse_proxy localhost:3000
 }
+
+openclaw.meore.link {
+	import tailscale
+	reverse_proxy localhost:18789
+}
