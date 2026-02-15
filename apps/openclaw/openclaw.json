@@ -10,8 +10,7 @@
       "mode": "socket",
       "enabled": true,
       "groupPolicy": "open",
-      "dmPolicy": "open",
-      "allowFrom": ["*"]
+      "dm": { "policy": "open", "allowFrom": ["*"] }
     }
   },
   "plugins": {
