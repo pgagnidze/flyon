@@ -1,6 +1,6 @@
 # OpenClaw
 
-Personal AI assistant with chat platform integrations.
+Personal AI assistant with Slack integration.
 
 ## Setup
 
@@ -12,11 +12,28 @@ cp .env.example .env
 
 Generate a gateway token: `openssl rand -hex 32`
 
-After first deploy, run the onboarding wizard to configure channels:
+For Slack tokens, see [Create a Slack app](#create-a-slack-app).
 
-```bash
-podman exec -it openclaw_openclaw_1 node dist/index.js onboard
-```
+All secrets are passed from GitHub Actions on deploy. Add them to your repo (Settings > Secrets and variables > Actions):
+
+- `OPENCLAW_GATEWAY_TOKEN`
+- `ANTHROPIC_API_KEY`
+- `SLACK_BOT_TOKEN`
+- `SLACK_APP_TOKEN`
+
+### Create a Slack app
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps) > Create New App > From scratch
+2. OAuth & Permissions > add bot token scopes:
+   - `chat:write`, `channels:history`, `channels:read`
+   - `groups:history`, `groups:read`
+   - `im:history`, `im:read`, `im:write`, `users:read`
+3. Socket Mode > enable > create App-Level Token with `connections:write` scope (gives `xapp-...`)
+4. Event Subscriptions > Enable Events > Subscribe to bot events:
+   - `message.channels`, `message.im`, `app_mention`
+5. Install to Workspace > copy Bot Token (`xoxb-...`)
+6. Reinstall the app after adding event subscriptions
+7. In Slack, invite the bot: `/invite @OpenClaw`
 
 ## Deploy
 

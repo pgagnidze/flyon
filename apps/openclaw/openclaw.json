@@ -1,0 +1,9 @@
+{
+  "gateway": {
+    "mode": "local",
+    "auth": { "mode": "token" }
+  },
+  "channels": {
+    "slack": { "enabled": true }
+  }
+}
