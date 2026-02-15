@@ -1,9 +1,10 @@
 # see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
 use_default_settings: true
 server:
-  limiter: true
+  limiter: false
   image_proxy: true
 redis:
   url: redis://valkey:6379/0
 ui:
   static_use_hash: true
+
