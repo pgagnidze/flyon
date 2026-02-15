@@ -5,6 +5,10 @@ server:
   image_proxy: true
 redis:
   url: redis://valkey:6379/0
+search:
+  formats:
+    - html
+    - json
 ui:
   static_use_hash: true
 
