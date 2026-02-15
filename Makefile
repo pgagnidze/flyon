@@ -19,7 +19,7 @@ help: ## Show usage and commands
 deploy: ## Deploy a single app
 	$(call validate_app)
 	@echo "Deploying $(app)..."
-	@cd apps/$(app) && podman-compose up -d --build
+	@cd apps/$(app) && podman-compose up -d --build --force-recreate
 	@echo "$(app) deployed"
 
 stop: ## Stop a single app
@@ -33,7 +33,7 @@ up: ## Start all apps
 		if [ -f "$$dir/podman-compose.yml" ]; then \
 			app=$$(basename "$$dir"); \
 			echo "Starting $$app..."; \
-			cd "$$dir" && podman-compose up -d --build && cd ../..; \
+			cd "$$dir" && podman-compose up -d --build --force-recreate && cd ../..; \
 		fi; \
 	done
 
@@ -65,11 +65,11 @@ update: ## Pull and restart all apps (caddy last)
 			app=$$(basename "$$dir"); \
 			if [ "$$app" = "caddy" ]; then continue; fi; \
 			echo "Updating $$app..."; \
-			(cd "$$dir" && podman-compose pull 2>/dev/null; podman-compose up -d --build) || failed="$$failed $$app"; \
+			(cd "$$dir" && podman-compose pull 2>/dev/null; podman-compose up -d --build --force-recreate) || failed="$$failed $$app"; \
 		fi; \
 	done; \
 	echo "Updating caddy..."; \
-	(cd apps/caddy && podman-compose pull 2>/dev/null; podman-compose up -d --build) || failed="$$failed caddy"; \
+	(cd apps/caddy && podman-compose pull 2>/dev/null; podman-compose up -d --build --force-recreate) || failed="$$failed caddy"; \
 	if [ -n "$$failed" ]; then \
 		echo "Failed:$$failed"; \
 		exit 1; \
