@@ -3,7 +3,8 @@
     "mode": "local",
     "bind": "lan",
     "auth": { "mode": "token" },
-    "trustedProxies": ["10.89.0.0/16"]
+    "trustedProxies": ["10.89.0.0/16"],
+    "controlUi": { "dangerouslyDisableDeviceAuth": true }
   },
   "channels": {
     "slack": {
