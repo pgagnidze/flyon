@@ -15,7 +15,7 @@ Self-hosted applications on a home server using Podman Compose.
 | [LibreChat](apps/librechat) | AI chat interface | 3080 | MongoDB |
 | [Ollama](apps/ollama) | Local LLM server | 11434 | |
 | [ConvertX](apps/convertx) | File converter | 3000 | |
-| ~~[OpenClaw](apps/openclaw)~~ | ~~AI assistant~~ | ~~18789~~ | Disabled |
+| [OpenClaw](apps/openclaw) | AI assistant | 18789 | |
 
 ## Usage
 
