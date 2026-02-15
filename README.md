@@ -15,7 +15,7 @@ Self-hosted applications on a home server using Podman Compose.
 | [LibreChat](apps/librechat) | AI chat interface | 3080 | MongoDB |
 | [Ollama](apps/ollama) | Local LLM server | 11434 | |
 | [ConvertX](apps/convertx) | File converter | 3000 | |
-| [OpenClaw](apps/openclaw) | AI assistant | 18789 | |
+| ~~[OpenClaw](apps/openclaw)~~ | ~~AI assistant~~ | ~~18789~~ | Disabled |
 
 ## Usage
 
@@ -308,13 +308,6 @@ sudo firewall-cmd --reload
 Access via Tailscale hostname: `https://hostname:9090`
 
 </details>
-
-## Todo
-
-- [ ] Selective deploy (only changed apps instead of all)
-- [ ] Cleanup removed apps (stop containers for deleted app directories)
-- [ ] UPS for power outage protection
-- [ ] Backup strategy (3-2-1 rule)
 
 > [!NOTE]
 > Current hardware: Beelink GTi14 Ultra. Intel Core Ultra 9 185H, 32GB DDR5, 1TB NVMe.
