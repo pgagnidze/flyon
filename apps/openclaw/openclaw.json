@@ -1,7 +1,8 @@
 {
   "gateway": {
     "mode": "local",
-    "auth": { "mode": "token" }
+    "auth": { "mode": "token" },
+    "trustedProxies": ["10.89.0.0/16"]
   },
   "channels": {
     "slack": { "enabled": true }

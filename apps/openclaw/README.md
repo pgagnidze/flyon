@@ -35,6 +35,21 @@ All secrets are passed from GitHub Actions on deploy. Add them to your repo (Set
 6. Reinstall the app after adding event subscriptions
 7. In Slack, invite the bot: `/invite @OpenClaw`
 
+## Post-deployment (first time only)
+
+### Approve dashboard device
+
+1. Open `openclaw.meore.link` in browser
+2. It will ask for pairing approval
+3. Approve from inside the container:
+
+```bash
+podman-compose exec openclaw node dist/index.js devices list
+podman-compose exec openclaw node dist/index.js devices approve <requestId>
+```
+
+If you get "device token mismatch", clear browser local storage for that domain and retry.
+
 ## Deploy
 
 ```bash
