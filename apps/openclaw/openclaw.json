@@ -1,10 +1,22 @@
 {
   "gateway": {
     "mode": "local",
+    "bind": "lan",
     "auth": { "mode": "token" },
     "trustedProxies": ["10.89.0.0/16"]
   },
   "channels": {
-    "slack": { "enabled": true }
+    "slack": {
+      "mode": "socket",
+      "enabled": true,
+      "groupPolicy": "open",
+      "dmPolicy": "open",
+      "allowFrom": ["*"]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "slack": { "enabled": true }
+    }
   }
 }
