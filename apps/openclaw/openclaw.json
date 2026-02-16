@@ -58,12 +58,7 @@
     "enabled": true,
     "defaultProfile": "openclaw",
     "headless": true,
-    "profiles": {
-      "openclaw": {
-        "cdpUrl": "http://browser:9222",
-        "color": "#FF4500"
-      }
-    }
+    "noSandbox": true
   },
   "plugins": {
     "entries": {
