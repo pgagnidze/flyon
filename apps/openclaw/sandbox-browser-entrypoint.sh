@@ -44,6 +44,7 @@ CHROME_ARGS+=(
   "--disable-crash-reporter"
   "--metrics-recording-only"
   "--no-sandbox"
+  "--remote-allow-origins=*"
 )
 
 chromium "${CHROME_ARGS[@]}" about:blank &
