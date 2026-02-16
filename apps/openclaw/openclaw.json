@@ -57,7 +57,7 @@
   "browser": {
     "enabled": true,
     "defaultProfile": "openclaw",
-    "headless": true,
+    "headless": false,
     "noSandbox": true
   },
   "plugins": {

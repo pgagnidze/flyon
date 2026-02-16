@@ -58,3 +58,8 @@ openclaw.meore.link {
 	import tailscale
 	reverse_proxy localhost:18789
 }
+
+openclaw-vnc.meore.link {
+	import tailscale
+	reverse_proxy localhost:6080
+}
