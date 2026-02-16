@@ -58,7 +58,8 @@
     "enabled": true,
     "defaultProfile": "openclaw",
     "headless": false,
-    "noSandbox": true
+    "noSandbox": true,
+    "executablePath": "/usr/bin/chromium"
   },
   "plugins": {
     "entries": {
