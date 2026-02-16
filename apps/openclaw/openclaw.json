@@ -49,8 +49,18 @@
       },
       "sandbox": {
         "browser": {
-          "enabled": true
+          "enabled": false
         }
+      }
+    }
+  },
+  "browser": {
+    "enabled": true,
+    "defaultProfile": "openclaw",
+    "headless": true,
+    "profiles": {
+      "openclaw": {
+        "cdpUrl": "http://browser:9222"
       }
     }
   },
