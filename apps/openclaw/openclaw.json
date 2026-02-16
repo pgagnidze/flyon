@@ -16,6 +16,17 @@
   },
   "agents": {
     "defaults": {
+      "model": {
+        "primary": "anthropic/claude-opus-4-6",
+        "fallbacks": [
+          "anthropic/claude-sonnet-4-5-20250929",
+          "anthropic/claude-haiku-4-5-20251001"
+        ]
+      },
+      "heartbeat": {
+        "every": "30m",
+        "model": "anthropic/claude-haiku-4-5-20251001"
+      },
       "memorySearch": {
         "provider": "openai",
         "model": "qwen3-embedding:4b",
@@ -23,6 +34,18 @@
           "baseUrl": "https://ollama.meore.link/v1/",
           "apiKey": "unused"
         }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "memoryFlush": {
+          "enabled": true,
+          "softThresholdTokens": 40000
+        }
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "6h",
+        "keepLastAssistants": 3
       }
     }
   },
