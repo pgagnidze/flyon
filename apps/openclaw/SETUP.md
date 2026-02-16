@@ -41,7 +41,7 @@ You are one of several apps in this stack.
 | **Web search** | `https://searxng.meore.link/search?q=QUERY&format=json` | Use via curl. No Brave or other search APIs. |
 | **Ollama** | `https://ollama.meore.link` | OpenAI-compatible at `/v1/chat/completions` |
 | **Memos** | `https://memos.meore.link` | Requires `Authorization: Bearer $MEMOS_ACCESS_TOKEN` |
-| **Browser** | Sandbox (Chromium) | Built-in. Use for browsing, scraping, and interacting with web pages. |
+| **Browser** | Chromium via Playwright | Headless: false, profile: `openclaw`. Always start browser with `profile="openclaw"` before opening pages. Viewable via noVNC. |
 | **Slack** | Socket Mode | Be thoughtful in group chats. React like a human. |
 
 ### Ollama Models
