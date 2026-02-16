@@ -46,6 +46,11 @@
         "mode": "cache-ttl",
         "ttl": "6h",
         "keepLastAssistants": 3
+      },
+      "sandbox": {
+        "browser": {
+          "enabled": true
+        }
       }
     }
   },
