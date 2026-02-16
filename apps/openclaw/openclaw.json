@@ -58,8 +58,7 @@
     "enabled": true,
     "defaultProfile": "openclaw",
     "headless": false,
-    "noSandbox": true,
-    "executablePath": "/usr/bin/google-chrome-stable"
+    "noSandbox": true
   },
   "plugins": {
     "entries": {
