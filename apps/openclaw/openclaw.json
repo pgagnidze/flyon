@@ -11,7 +11,8 @@
       "mode": "socket",
       "enabled": true,
       "groupPolicy": "open",
-      "dm": { "policy": "open", "allowFrom": ["*"] }
+      "dmPolicy": "open",
+      "allowFrom": ["*"]
     }
   },
   "agents": {
