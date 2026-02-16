@@ -2,6 +2,10 @@ services:
   ollama:
     image: docker.io/ollama/ollama
     network_mode: host
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - OLLAMA_VULKAN=1
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
