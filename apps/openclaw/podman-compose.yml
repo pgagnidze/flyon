@@ -8,9 +8,22 @@ services:
     env_file: .env
     environment:
       - HOME=/home/node
+      - BROWSER_CDP_URL=http://browser:9222
     volumes:
       - openclaw_config:/home/node/.openclaw
       - openclaw_workspace:/home/node/.openclaw/workspace
+    depends_on:
+      - browser
+    restart: always
+
+  browser:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox-browser
+    image: openclaw-sandbox-browser:bookworm-slim
+    shm_size: 2g
+    environment:
+      - OPENCLAW_BROWSER_HEADLESS=1
     restart: always
 
 volumes:
