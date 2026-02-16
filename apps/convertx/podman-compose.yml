@@ -6,7 +6,7 @@ services:
     env_file: .env
     volumes:
       - convertx_data:/app/data
-    restart: unless-stopped
+    restart: always
 
 volumes:
   convertx_data:

@@ -11,7 +11,7 @@ services:
     volumes:
       - openclaw_config:/home/node/.openclaw
       - openclaw_workspace:/home/node/.openclaw/workspace
-    restart: unless-stopped
+    restart: always
 
 volumes:
   openclaw_config:

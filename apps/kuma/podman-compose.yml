@@ -5,7 +5,7 @@ services:
       - "127.0.0.1:3001:3001"
     volumes:
       - kuma_data:/app/data
-    restart: unless-stopped
+    restart: always
 
 volumes:
   kuma_data:

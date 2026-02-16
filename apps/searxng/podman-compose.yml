@@ -8,14 +8,14 @@ services:
       - SEARXNG_BASE_URL=http://localhost:8888/
     depends_on:
       - valkey
-    restart: unless-stopped
+    restart: always
 
   valkey:
     image: docker.io/valkey/valkey:alpine
     volumes:
       - valkey_data:/data
     command: valkey-server --save 3600 1 300 100 60 10000
-    restart: unless-stopped
+    restart: always
 
 volumes:
   valkey_data:

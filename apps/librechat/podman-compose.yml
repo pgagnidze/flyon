@@ -9,13 +9,13 @@ services:
       - ALLOW_REGISTRATION=true
     depends_on:
       - mongodb
-    restart: unless-stopped
+    restart: always
 
   mongodb:
     image: docker.io/mongo:latest
     volumes:
       - mongodb_data:/data/db
-    restart: unless-stopped
+    restart: always
 
 volumes:
   mongodb_data:

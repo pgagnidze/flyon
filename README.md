@@ -208,6 +208,18 @@ sudo useradd -m -s /bin/bash deploy
 sudo usermod -aG systemd-journal deploy
 ```
 
+Enable lingering so rootless Podman containers start on boot without a login session:
+
+```bash
+sudo loginctl enable-linger deploy
+```
+
+Then as the `deploy` user, enable the built-in Podman restart service:
+
+```bash
+systemctl --user enable podman-restart.service
+```
+
 The repo is cloned automatically on the first deploy via GitHub Actions.
 
 </details>
