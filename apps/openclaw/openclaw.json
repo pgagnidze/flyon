@@ -49,8 +49,7 @@
       },
       "sandbox": {
         "browser": {
-          "enabled": true,
-          "target": "host"
+          "enabled": true
         }
       }
     }
