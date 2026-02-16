@@ -11,8 +11,8 @@ make deploy app=ollama
 ## Pull Models
 
 ```bash
-podman-compose exec ollama ollama pull phi4:14b
-podman-compose exec ollama ollama pull deepseek-r1:14b
+podman-compose exec ollama ollama pull qwen3:14b
+podman-compose exec ollama ollama pull qwen3-embedding:4b
 ```
 
 ## Commands

@@ -20,6 +20,7 @@ All secrets are passed from GitHub Actions on deploy. Add them to your repo (Set
 - `ANTHROPIC_API_KEY`
 - `SLACK_BOT_TOKEN`
 - `SLACK_APP_TOKEN`
+- `MEMOS_ACCESS_TOKEN`
 
 ### Create a Slack app
 

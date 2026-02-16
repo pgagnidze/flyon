@@ -15,8 +15,7 @@ endpoints:
         baseURL: "http://host.containers.internal:11434/v1/"
         models:
           default: [
-            "deepseek-r1:14b",
-            "phi4:14b"
+            "qwen3:14b"
             ]
           fetch: false
         titleConvo: true

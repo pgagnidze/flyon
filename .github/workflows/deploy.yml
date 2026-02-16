@@ -33,6 +33,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN }}
+          MEMOS_ACCESS_TOKEN: ${{ secrets.MEMOS_ACCESS_TOKEN }}
         run: |
           ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" << EOF
             set -e
@@ -46,6 +47,6 @@ jobs:
             echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" > apps/caddy/.env
             echo "SEARXNG_SECRET=$SEARXNG_SECRET" > apps/searxng/.env
             echo "JWT_SECRET=$CONVERTX_JWT_SECRET" > apps/convertx/.env
-            printf "OPENCLAW_GATEWAY_TOKEN=$OPENCLAW_GATEWAY_TOKEN\nANTHROPIC_API_KEY=$ANTHROPIC_API_KEY\nSLACK_BOT_TOKEN=$SLACK_BOT_TOKEN\nSLACK_APP_TOKEN=$SLACK_APP_TOKEN\n" > apps/openclaw/.env
+            printf "OPENCLAW_GATEWAY_TOKEN=$OPENCLAW_GATEWAY_TOKEN\nANTHROPIC_API_KEY=$ANTHROPIC_API_KEY\nSLACK_BOT_TOKEN=$SLACK_BOT_TOKEN\nSLACK_APP_TOKEN=$SLACK_APP_TOKEN\nMEMOS_ACCESS_TOKEN=$MEMOS_ACCESS_TOKEN\n" > apps/openclaw/.env
             make update
           EOF
