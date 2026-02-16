@@ -64,7 +64,7 @@ wait_for_display() {
 start_xvfb() {
     log info "Starting Xvfb on $DISPLAY"
     rm -f /tmp/.X1-lock /tmp/.X11-unix/X1
-    Xvfb :1 -screen 0 1024x768x24 &
+    Xvfb :1 -screen 0 1024x768x24 -ac &
     PIDS+=($!)
     wait_for_display
     log success "Xvfb ready"
