@@ -214,10 +214,10 @@ Enable lingering so rootless Podman containers start on boot without a login ses
 sudo loginctl enable-linger deploy
 ```
 
-Then as the `deploy` user, enable the built-in Podman restart service:
+Enable the built-in Podman restart service for the `deploy` user:
 
 ```bash
-systemctl --user enable podman-restart.service
+sudo systemctl --user --machine=deploy@.host enable podman-restart.service
 ```
 
 The repo is cloned automatically on the first deploy via GitHub Actions.
