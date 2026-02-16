@@ -59,7 +59,9 @@
     "defaultProfile": "openclaw",
     "headless": false,
     "noSandbox": true,
-    "executablePath": "/usr/bin/google-chrome-stable"
+    "executablePath": "/usr/bin/google-chrome-stable",
+    "userDataDir": "/home/node/.chrome-data",
+    "args": ["--disable-gpu", "--disable-dev-shm-usage"]
   },
   "plugins": {
     "entries": {
