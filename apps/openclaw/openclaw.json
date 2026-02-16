@@ -60,7 +60,8 @@
     "headless": true,
     "profiles": {
       "openclaw": {
-        "cdpUrl": "http://browser:9222"
+        "cdpUrl": "http://browser:9222",
+        "color": "#FF4500"
       }
     }
   },
