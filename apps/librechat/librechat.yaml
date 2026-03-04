@@ -15,7 +15,7 @@ endpoints:
         baseURL: "http://host.containers.internal:11434/v1/"
         models:
           default: [
-            "qwen3:14b"
+            "qwen3.5:27b"
             ]
           fetch: false
         titleConvo: true
