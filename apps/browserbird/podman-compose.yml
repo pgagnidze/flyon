@@ -1,5 +1,5 @@
 services:
-  browserbird-vm:
+  vm:
     image: ghcr.io/owloops/browserbird-vm:latest
     init: true
     volumes:
@@ -15,7 +15,7 @@ services:
       retries: 10
       start_period: 30s
 
-  browserbird-app:
+  app:
     build: .
     init: true
     ports:
@@ -27,7 +27,7 @@ services:
       - HOME=/home/bbuser
       - BROWSER_MODE=${BROWSER_MODE:-persistent}
     depends_on:
-      browserbird-vm:
+      vm:
         condition: service_healthy
     restart: always
 
