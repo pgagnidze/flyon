@@ -1,0 +1,40 @@
+services:
+  browserbird-vm:
+    image: ghcr.io/owloops/browserbird-vm:latest
+    init: true
+    volumes:
+      - browserbird_browser:/home/bbuser/.browserbird
+    environment:
+      - BROWSER_MODE=${BROWSER_MODE:-persistent}
+    shm_size: 2g
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tuln | grep -q ':3000 '"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  browserbird-app:
+    build: .
+    init: true
+    ports:
+      - "127.0.0.1:18800:18800"
+    env_file: .env
+    volumes:
+      - browserbird_data:/app/.browserbird
+    environment:
+      - HOME=/home/bbuser
+      - BROWSER_MODE=${BROWSER_MODE:-persistent}
+    depends_on:
+      browserbird-vm:
+        condition: service_healthy
+    restart: always
+
+networks:
+  default:
+    name: browserbird-net
+
+volumes:
+  browserbird_data:
+  browserbird_browser:
