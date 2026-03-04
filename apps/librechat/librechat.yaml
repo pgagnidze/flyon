@@ -25,6 +25,7 @@ endpoints:
         forcePrompt: false
         modelDisplayLabel: "Ollama"
         addParams:
+          "think": false
           "stop": [
             "<|im_start|>",
             "<|im_end|>",
