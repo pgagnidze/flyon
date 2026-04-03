@@ -12,7 +12,7 @@ endpoints:
   custom:
       - name: "Ollama"
         apiKey: "ollama"
-        baseURL: "http://host.containers.internal:11434/v1/"
+        baseURL: "https://ollama.meore.link/v1/"
         models:
           default: [
             "qwen3.5:35b-a3b",
