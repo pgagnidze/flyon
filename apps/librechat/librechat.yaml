@@ -15,7 +15,7 @@ endpoints:
         baseURL: "https://ollama.meore.link/v1/"
         models:
           default: [
-            "qwen3.5:35b-a3b",
+            "qwen3.6:35b-a3b",
             "qwen3.5:9b"
             ]
           fetch: false
